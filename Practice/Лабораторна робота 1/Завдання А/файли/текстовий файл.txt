@@ -1,0 +1,301 @@
+  
+
+
+SELECT 
+  client.cl_name as customer,
+  SUM(cl_order.total_price) as suma
+FROM cl_order 
+	JOIN client 
+      ON client.client_id=cl_order.client_id
+GROUP BY
+  client.cl_name,
+  cl_order.total_price
+HAVING SUM(cl_order.total_price)=
+(SELECT MAX(suma) FROM (
+	SELECT
+		cl_order.total_price,
+		SUM(cl_order.total_price) as suma
+	FROM cl_order
+	GROUP BY cl_order.total_price
+) as c
+);
+
+
+
+
+
+
+SELECT 
+  c.cl_name as customer,
+  SUM(cl.total_price) as suma
+FROM cl_order cl
+  INNER JOIN client c
+      ON c.client_id=cl.client_id
+	  WHERE total_price = (SELECT MAX(total_price) FROM cl_order)
+GROUP BY
+  cl.total_price,
+  c.cl_name
+
+
+
+
+
+  
+HAVING SUM(cl.total_price)=(
+SELECT MAX(cl.total_price) FROM (
+  SELECT
+    cl.total_price,
+    SUM(cl.total_price) as total_suma
+  FROM cl_order cl
+  GROUP BY cl.total_price
+) as max_customer
+)
+ORDER BY SUM(cl.total_price) DESC;
+
+
+Update cl_order 
+   set total_price = amount * price
+
+
+
+SELECT 
+  client.cl_name as customer,
+  SUM(cl_order.total_price) as suma
+FROM cl_order 
+  JOIN client 
+      ON client.client_id=cl_order.client_id
+GROUP BY
+  client.cl_name,
+  cl_order.total_price
+HAVING SUM(cl_order.total_price)=
+(SELECT MAX(suma) FROM (
+  SELECT
+    cl_order.total_price,
+    SUM(cl_order.total_price) as suma
+  FROM cl_order
+  GROUP BY cl_order.total_price
+) as c
+);
+
+ORDER BY SUM(cl_order.total_price) DESC;
+
+    
+----    WHERE total_price = (SELECT MAX(total_price) FROM cl_order)
+--GROUP BY
+--  cl.total_price,
+--  c.cl_name
+
+
+
+WITH temporaryTable AS (
+	SELECT cl_name, SUM(total_price) as suma
+	FROM client
+	INNER JOIN cl_order ON client.client_id=cl_order.client_id
+	GROUP BY cl_name, total_price
+)
+SELECT *
+FROM temporaryTable 
+WHERE suma = (
+SELECT MAX(suma)
+FROM temporaryTable
+)
+SELECT 
+  p.pr_name,
+  g.provider_id,
+  g.go_name,
+  g.weight,
+  g.color,
+  g.material,
+  g.price
+from provider p
+  INNER JOIN goods g 
+      ON p.provider_id=g.provider_id
+WHERE p.provider_id = 2
+
+
+
+
+
+Update cl_order 
+   set total_price = amount * price
+
+
+
+
+
+
+SELECT 
+  SUM(cl.total_price) as suma,
+  c.cl_name
+FROM cl_order cl 
+  INNER JOIN client c
+    ON c.client_id=cl.client_id
+GROUP BY c.cl_name
+ORDER BY suma DESC
+
+
+
+
+
+
+
+
+
+
+SELECT 
+  c.cl_name as customer,
+  SUM(cl.total_price) as suma
+FROM cl_order cl
+  INNER JOIN client c
+      ON c.client_id=cl.client_id
+GROUP BY
+  cl.total_price,
+  c.cl_name
+
+HAVING SUM(cl.total_price)=(
+SELECT MAX(cl.total_price) FROM (
+  SELECT
+    cl.total_price,
+    SUM(cl.total_price) as total_suma
+  FROM cl_order cl
+  GROUP BY cl.total_price
+) as max_customer
+);
+
+
+
+
+
+
+
+
+SELECT 
+  c.cl_name as customer,
+  SUM(cl.total_price) as suma
+FROM cl_order cl
+  INNER JOIN client c
+      ON c.client_id=cl.client_id
+GROUP BY
+  cl.total_price,
+  c.cl_name
+
+HAVING SUM(cl.total_price)=(
+SELECT MAX(cl.total_price) FROM (
+  SELECT cl.total_price,
+    SUM(cl.total_price) as total_suma
+  FROM cl_order cl
+  GROUP BY cl.total_price
+) as max_customer
+);
+
+SELECT MAX(total_price) AS "biggest order"
+FROM cl_order;
+
+
+
+
+
+SELECT client_id, total_price
+FROM cl_order
+WHERE total_price = (SELECT MAX(total_price) FROM cl_order);
+
+
+
+SELECT 
+  client.cl_name as customer,
+  SUM(cl_order.total_price) as suma
+FROM cl_order 
+	JOIN client 
+      ON client.client_id=cl_order.client_id
+GROUP BY
+  client.cl_name,
+  cl_order.total_price
+HAVING SUM(cl_order.total_price)=
+(SELECT MAX(suma) FROM (
+	SELECT
+		cl_order.total_price,
+		SUM(cl_order.total_price) as suma
+	FROM cl_order
+	GROUP BY cl_order.total_price
+) as c
+);
+
+
+
+
+
+
+SELECT 
+  c.cl_name as customer,
+  SUM(cl.total_price) as suma
+FROM cl_order cl
+  INNER JOIN client c
+      ON c.client_id=cl.client_id
+	  WHERE total_price = (SELECT MAX(total_price) FROM cl_order)
+GROUP BY
+  cl.total_price,
+  c.cl_name
+
+
+
+
+
+  
+HAVING SUM(cl.total_price)=(
+SELECT MAX(cl.total_price) FROM (
+  SELECT
+    cl.total_price,
+    SUM(cl.total_price) as total_suma
+  FROM cl_order cl
+  GROUP BY cl.total_price
+) as max_customer
+)
+ORDER BY SUM(cl.total_price) DESC;
+
+
+Update cl_order 
+   set total_price = amount * price
+
+
+
+SELECT 
+  client.cl_name as customer,
+  SUM(cl_order.total_price) as suma
+FROM cl_order 
+  JOIN client 
+      ON client.client_id=cl_order.client_id
+GROUP BY
+  client.cl_name,
+  cl_order.total_price
+HAVING SUM(cl_order.total_price)=
+(SELECT MAX(suma) FROM (
+  SELECT
+    cl_order.total_price,
+    SUM(cl_order.total_price) as suma
+  FROM cl_order
+  GROUP BY cl_order.total_price
+) as c
+);
+
+ORDER BY SUM(cl_order.total_price) DESC;
+
+    
+----    WHERE total_price = (SELECT MAX(total_price) FROM cl_order)
+--GROUP BY
+--  cl.total_price,
+--  c.cl_name
+
+
+
+WITH temporaryTable AS (
+	SELECT cl_name, SUM(total_price) as suma
+	FROM client
+	INNER JOIN cl_order ON client.client_id=cl_order.client_id
+	GROUP BY cl_name, total_price
+)
+SELECT *
+FROM temporaryTable 
+WHERE suma = (
+SELECT MAX(suma)
+FROM temporaryTable
+)
